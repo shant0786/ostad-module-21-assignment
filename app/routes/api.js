@@ -11,8 +11,11 @@ const router = express.Router();
 router.post("/registration", UserController.Registration);
 //Login
 router.post("/login", UserController.Login);
-//Logout
-router.get("/logout", UserController.Logout);
+// Sending Email OTP
+router.get("/sendingOTP",Authenticator, UserController.SendOTP);
+// Account Verification
+router.get("/verifyingAccount/:otp", Authenticator, UserController.VerifyAccount);
+
 // Get Single User
 router.get("/user", Authenticator, UserController.User);
 // Get All Users
@@ -21,5 +24,6 @@ router.get("/users", Authenticator, UserController.Users);
 router.post("/updateUser", Authenticator, UserController.UpdateUser);
 // Delete Single User
 router.delete("/deleteUser", Authenticator, UserController.DeleteUser);
-
+//Logout
+router.get("/logout", UserController.Logout);
 module.exports = router;

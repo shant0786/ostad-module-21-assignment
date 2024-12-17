@@ -1,29 +1,26 @@
-import nodemailer from "nodemailer";
+const nodemailer=require('nodemailer')
 
-export const EmailSender = async (
-  EmailTo,
-  EmailText,
-  EmailSubject,
-  EmailHTMLBody
-) => {
-  const transporter = nodemailer.createTransport({
-    host: process.env.EMAIL_HOST,
-    port: process.env.EMAIL_PORT,
+
+const SendEmail=async (EmailTo,EmailText,EmailSubject)=>{
+  const transport=   nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 465,
     secure: true,
-    auth: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASSWORD },
-    tls: { rejectUnauthorized: false },
-  });
-  const mailOptions = {
-    from: EMAIL_USER,
-    to: EmailTo,
-    subject: EmailSubject,
-    text: EmailText,
-    html: EmailHTMLBody,
-  };
-  try {
-    await transporter.sendMail(mailOptions);
-    return "User Email Verified successfully";
-  } catch (err) {
-    return "error sending" + err.toString();
+    auth: {
+      user: "rm.shanto786@gmail.com",
+      pass: "isqpwpxmwwdfjvyt"
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  })
+  const mailOption={
+    from:"UserRegistration.ltd <rm.shanto786@gmail.com>",
+    to:EmailTo,
+    subject:EmailSubject,
+    text:EmailText
   }
-};
+  return await transport.sendMail(mailOption)
+}
+
+module.exports =SendEmail

@@ -5,6 +5,8 @@ const {
   UsersService,
   UpdateUserService,
   DeleteUserService,
+  SendOTPService,
+  VerifyAccountService
 } = require("../services/UserServices");
 exports.Registration = async (req, res) => {
   const result = await RegistrationService(req);
@@ -31,8 +33,18 @@ exports.Logout = async (req, res) => {
     message: "User has successfully logged out",
   });
 };
+
+
 exports.User = async (req, res) => {
   const result = await UserService(req);
+  return res.status(200).json(result);
+};
+exports.SendOTP = async (req, res) => {
+  const result = await SendOTPService(req);
+  return res.status(200).json(result);
+};
+exports.VerifyAccount = async (req, res) => {
+  const result = await VerifyAccountService (req);
   return res.status(200).json(result);
 };
 exports.Users = async (req, res) => {

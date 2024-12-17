@@ -1,6 +1,7 @@
 const UserModel = require("../models/UserModel");
 const mongoose = require("mongoose");
 const { EncodeToken } = require("../utilities/tokenUtility");
+const  SendEmail  = require("../utilities/emailUtility");
 const ObjectID = mongoose.Types.ObjectId;
 
 const RegistrationService = async (req) => {
@@ -38,7 +39,7 @@ const LoginService = async (req) => {
     console.error(error);
     return {
       status: "error",
-      message: "Registration failed",
+      message: "Login failed",
       error_message: error.message,
     };
   }
@@ -63,7 +64,7 @@ const UserService = async (req) => {
     console.error(error);
     return {
       status: "error",
-      message: "Registration failed",
+      message: "Fetching data failed",
       error_message: error.message,
     };
   }
@@ -86,7 +87,7 @@ const UsersService = async () => {
     console.error(error);
     return {
       status: "error",
-      message: "Registration failed",
+      message: "Fetching data failed",
       error_message: error.message,
     };
   }
@@ -102,13 +103,14 @@ const UpdateUserService = async (req) => {
     return {
       status: "success",
       message: "User Information Updated Successfully",
-      data: data,
+      matched: data['matchedCount'],
+      modified: data['modifiedCount'],
     };
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-      message: "Registration failed",
+      message: "Updating data failed",
       error_message: error.message,
     };
   }
@@ -120,17 +122,69 @@ const DeleteUserService = async (req) => {
     return {
       status: "success",
       message: "User Information Deleted Successfully",
-      data: data,
+      matched: data['matchedCount'],
+      modified: data['modifiedCount'],
     };
   } catch (error) {
     console.error(error);
     return {
       status: "error",
-      message: "Registration failed",
+      message: "Deleting data failed",
       error_message: error.message,
     };
   }
 };
+const SendOTPService = async (req) => {
+  try {
+    const email=req.headers.email;
+    const userId = new ObjectID(req.headers.user_id);
+
+const otp =Math.floor(1000 + Math.random() * 9000);
+   await SendEmail(email, `Your OTP is ${otp}`, "Email Verification OTP",)
+  const data= await UserModel.updateOne({ email: email ,_id:userId},{$set: {otp:otp}});
+    return {
+      status: "success",
+      message: "OTP Successfully sent to your email, please check your email",
+      matched: data['matchedCount'],
+
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "error",
+      message: "Sending OTP failed",
+      error_message: error.message,
+    };
+  }
+};
+const VerifyAccountService = async (req) => {
+  try {
+    const email=req.headers.email;
+    const userId = new ObjectID(req.headers.user_id);
+    const otp=req.params.otp;
+    const data = await UserModel.updateOne(
+        { _id: userId, email: email, otp: otp },
+        { $set: { verified: true, otp: otp } }
+    );
+    return {
+      status: "success",
+      message: "User account verified Successfully",
+      matched: data['matchedCount'],
+      modified: data['modifiedCount'],
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      status: "error",
+      message: "Account verification failed",
+      error_message: error.message,
+    };
+  }
+};
+
+
+
+
 
 module.exports = {
   RegistrationService,
@@ -139,4 +193,6 @@ module.exports = {
   UsersService,
   UpdateUserService,
   DeleteUserService,
+  SendOTPService,
+  VerifyAccountService
 };

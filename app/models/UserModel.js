@@ -9,6 +9,7 @@ const usersSchema = new mongoose.Schema(
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     otp: { type: String, default: 0 },
+    verified: { type: Boolean, default: false },
     bloodGroup: { type: String },
   },
   { versionKey: false, timestamps: true }
