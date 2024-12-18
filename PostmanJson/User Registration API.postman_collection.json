@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \r\n}",
+					"raw": "{\r\n            \"firstName\": \"Suraiya\",\r\n            \"lastName\": \"Nadia\",\r\n            \"NIDNumber\": \"1998205890345\",\r\n            \"phoneNumber\": \"01763088788\",\r\n            \"password\":\"sn123456\",\r\n            \"email\": \"nadia786@gmail.com\",\r\n            \"bloodGroup\": \"O+\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -31,7 +31,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"shanto@example.com\",\r\n    \"password\":\"shanto2023#\"\r\n}",
+					"raw": "{\r\n    \r\n    \"email\": \"ss.sheefa786@gmail.com\",\r\n  \"password\": \"rms123456\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -43,7 +43,7 @@
 			"response": []
 		},
 		{
-			"name": "Sending Email OTP",
+			"name": "Send OTP",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -64,7 +64,7 @@
 			"response": []
 		},
 		{
-			"name": "Verifying Account",
+			"name": "Verify Account",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -80,7 +80,7 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/verifyingAccount/8019"
+				"url": "{{BASE_URL}}/verifyingAccount/8396"
 			},
 			"response": []
 		},
@@ -101,7 +101,7 @@
 						}
 					}
 				},
-				"url": "{{BASE_URL}}/user/ID"
+				"url": "{{BASE_URL}}/user"
 			},
 			"response": []
 		},
@@ -133,7 +133,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \r\n            \"firstName\": \"Fatima\",\r\n            \"lastName\": \"Rahman\",\r\n            \"NIDNumber\": \"2001145890345\",\r\n            \"phoneNumber\": \"01898765432\",\r\n            \"password\":\"fatema12345\",\r\n            \"email\": \"fatima.rahman@example.com\",\r\n            \"bloodGroup\": \"A+\"\r\n}\r\n\r\n}",
+					"raw": "{\r\n    \r\n         \"firstName\": \"Suraiya\",\r\n            \"lastName\": \"sultana\"\r\n            \r\n}\r\n\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -172,7 +172,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"shanto@example.com\",\r\n    \"password\":\"shanto2023#\"\r\n}",
+					"raw": "",
 					"options": {
 						"raw": {
 							"language": "json"

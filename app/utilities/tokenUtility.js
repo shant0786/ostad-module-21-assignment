@@ -2,9 +2,9 @@ const jwt = require("jsonwebtoken");
 
 const EXPIRE = { expiresIn: "24h" };
 const KEY = "the-secret-key";
-const EncodeToken = function (email, user_id) {
+const EncodeToken = function (email, user_id,verified) {
   try {
-    const PAYLOAD = { email: email, user_id: user_id };
+    const PAYLOAD = { email: email, user_id: user_id,verified };
     return jwt.sign(PAYLOAD, KEY, EXPIRE);
   } catch (err) {
     console.error(err.message);

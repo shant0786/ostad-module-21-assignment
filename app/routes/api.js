@@ -14,7 +14,7 @@ router.post("/login", UserController.Login);
 // Sending Email OTP
 router.get("/sendingOTP",Authenticator, UserController.SendOTP);
 // Account Verification
-router.get("/verifyingAccount/:otp", Authenticator, UserController.VerifyAccount);
+router.get("/verifyingAccount/:otp", Authenticator, UserController.VerifyAccount,);
 
 // Get Single User
 router.get("/user", Authenticator, UserController.User);
