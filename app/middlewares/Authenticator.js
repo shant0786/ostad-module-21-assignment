@@ -14,7 +14,10 @@ module.exports = (req, res, next) => {
 
   const email = decoded["email"];
   const user_id = decoded["user_id"];
+  const verified = decoded["verified"];
+
   req.headers.email = email;
   req.headers.user_id = user_id;
+  req.headers.verified = verified;
   next();
 };

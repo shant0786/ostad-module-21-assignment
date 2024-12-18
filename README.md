@@ -1,8 +1,26 @@
-# User Management API
+# User Management API Documentation
 
 ## Overview
+The User Management API is designed to handle user registration, authentication, and account management. This API facilitates a seamless process for creating and verifying user accounts, updating user details, and managing user sessions.
 
-This project provides a set of APIs for managing users in an application. It includes functionality for user registration, login, authentication, and profile management.
+---
+
+## How the Project Works
+1. **Registration:** Users register their accounts using the `Registration` API by providing necessary details.
+2. **Login:** Registered users authenticate using the `Login` API with their email and password.
+3. **OTP Handling:** To verify their accounts, users:
+   - Use the `Send OTP` API to receive a verification code.
+   - Confirm the code with the `Verify Account` API.
+4. **Account Management:** Verified users gain access to:
+   - `Get User`: Retrieve their own account details.
+   - `Get All Users`: Retrieve details of all users.
+   - `Update User`: Modify their account information.
+5. **Session Management:**
+   - `Logout`: Log out from the current session without requiring account verification.
+   - `Delete Account`: Permanently delete the user account without requiring account verification (only one login is needed).
+
+---
+
 
 ## Requirements
 
@@ -88,7 +106,7 @@ This project provides a set of APIs for managing users in an application. It inc
 
 ### 4. Single User Profile Read API
 
-**Endpoint**: `/api/users/:id`
+**Endpoint**: `/api/user`
 **Method**: GET
 **Description**: Fetches the profile of a specific user.
 
@@ -100,7 +118,7 @@ This project provides a set of APIs for managing users in an application. It inc
 
 ### 6. Single User Profile Update API
 
-**Endpoint**: `/api/users/:id`
+**Endpoint**: `/api/user`
 **Method**: PUT
 **Description**: Updates the profile of a specific user.
 **Request Body**:
@@ -119,7 +137,7 @@ This project provides a set of APIs for managing users in an application. It inc
 
 ### 7. Delete Single User API
 
-**Endpoint**: `/api/users/:id`
+**Endpoint**: `/api/user`
 **Method**: DELETE
 **Description**: Deletes a specific user profile.
 

@@ -45,6 +45,15 @@ exports.SendOTP = async (req, res) => {
 };
 exports.VerifyAccount = async (req, res) => {
   const result = await VerifyAccountService (req);
+  if (result) {
+    // Cookie settings
+    const cookieOption = {
+      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+      httpOnly: false,
+    };
+    // Set Cookie to the Browser
+    res.cookie("token", result["token"], cookieOption);
+  }
   return res.status(200).json(result);
 };
 exports.Users = async (req, res) => {
