@@ -8,6 +8,13 @@ const RegistrationService = async (req) => {
   try {
     const reqBody = req.body;
     const data = await UserModel.create(reqBody);
+    if(!data) {
+      return {
+        status: "error",
+        message: "User registration failed due to some error",
+
+      };
+    }
     return {
       status: "success",
       message: "User Information Successfully Saved",
@@ -29,6 +36,14 @@ const LoginService = async (req) => {
     const data = await UserModel.findOne(reqBody);
     // Token Direct method
     const token = EncodeToken(data.email, data._id);
+
+    if(!token) {
+      return {
+        status: "error",
+        message: "User login failed due to some error",
+
+      };
+    }
 
     return {
       status: "success",
@@ -55,6 +70,14 @@ const UserService = async (req) => {
       $project: { _id: 0, otp: 0, createdAt: 0, updatedAt: 0, password: 0 },
     };
     const data = await UserModel.aggregate([matchStage, projectionStage]);
+
+    if(!data) {
+      return {
+        status: "error",
+        message: "Fetching data failed due to some error",
+
+      };
+    }
     return {
       status: "success",
       message: "User Information Retrieved Successfully",
@@ -78,6 +101,13 @@ const UsersService = async () => {
       $project: { _id: 0, otp: 0, createdAt: 0, updatedAt: 0, password: 0 },
     };
     const data = await UserModel.aggregate([matchStage, projectionStage]);
+
+    if(!data) {
+      return {
+        status: "error",
+        message: "Fetching data failed due to some error",
+      };
+    }
     return {
       status: "success",
       message: "All Users Information Retrieved Successfully",
@@ -100,6 +130,12 @@ const UpdateUserService = async (req) => {
       { $set: req.body },
       { upsert: false }
     );
+    if(data['modified']===0) {
+      return {
+        status: "error",
+        message: "Fetching data failed due to some error",
+      };
+    }
     return {
       status: "success",
       message: "User Information Updated Successfully",
@@ -119,11 +155,17 @@ const DeleteUserService = async (req) => {
   try {
     const userId = new ObjectID(req.headers.user_id);
     const data = await UserModel.deleteOne({ _id: userId });
+    if(data['matched']===0) {
+      return {
+        status: "error",
+        message: "Deleting data failed due to some error",
+      };
+    }
     return {
       status: "success",
       message: "User Information Deleted Successfully",
       matched: data['matchedCount'],
-      modified: data['modifiedCount'],
+
     };
   } catch (error) {
     console.error(error);
