@@ -234,7 +234,7 @@ const VerifyAccountService = async (req) => {
     const otp=req.params.otp;
     const data = await UserModel.updateOne(
         { _id: userId, email: email, otp: otp },
-        { $set: { verified: verified, otp: otp } }
+        { $set: { verified: verified, otp: 0 } }
     );
     const newToken = EncodeToken(email, userId,verified);
 
