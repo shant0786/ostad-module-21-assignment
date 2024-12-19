@@ -1,11 +1,15 @@
 const jwt = require("jsonwebtoken");
+let dotENV = require("dotenv");
+dotENV.config();
 
-const EXPIRE = { expiresIn: "24h" };
-const KEY = "the-secret-key";
-const EncodeToken = function (email, user_id,verified) {
+const EXPIRES = { expiresIn: process.env.JWT_EXPIRATION_TIME };
+const KEY = process.env.JWT_SECRET_KEY;
+let PAYLOAD
+
+const EncodeToken = function (email, user_id, verified) {
   try {
-    const PAYLOAD = { email: email, user_id: user_id,verified };
-    return jwt.sign(PAYLOAD, KEY, EXPIRE);
+    PAYLOAD = { email: email, user_id: user_id, verified };
+    return jwt.sign(PAYLOAD, KEY, EXPIRES);
   } catch (err) {
     console.error(err.message);
   }
@@ -13,7 +17,7 @@ const EncodeToken = function (email, user_id,verified) {
 
 const DecodeToken = function (token) {
   try {
-    const PAYLOAD = jwt.verify(token, KEY);
+     PAYLOAD = jwt.verify(token, KEY);
     return PAYLOAD;
   } catch (err) {
     console.error(err.message);

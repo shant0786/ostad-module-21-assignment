@@ -12,7 +12,8 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 
-require("dotenv").config({ path: "config.env" });
+let dotENV = require("dotenv");
+dotENV.config();
 mongoose
   .connect(process.env.MONGODB_CONNECTION, { autoIndex: true })
   .then((res) => {
@@ -40,7 +41,9 @@ app.use(
 );
 
 // Disabling ETags helps avoid caching problems,dynamic content or multiple servers
-app.set("etag", false); // environment variable is not working properly
+
+
+app.set("etag",process.env.WEB_CACHE.toLowerCase() === "true");
 app.use("/api/v1", router);
 
 // Add React Front End Routing
