@@ -27,7 +27,12 @@ exports.Login = async (req, res) => {
 };
 exports.Logout = async (req, res) => {
   // Set Cookie to the Browser
-  res.cookie("token", { httpOnly: false });
+  const cookieOption = {
+    expires: new Date(Date.now() - 1000 * 60 * 60 * 24),
+    httpOnly: false,
+  };
+  // Set Cookie to the Browser
+  res.cookie("token", '', cookieOption);
   return res.status(200).json({
     status: "success",
     message: "User has successfully logged out",
